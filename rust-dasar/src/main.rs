@@ -44,6 +44,33 @@ fn number() {
 }
 
 #[test]
-fn numeric_operation() {
-    
+fn numeric_operator() {
+    let a =  223;
+    let b = 32;
+
+    let mut _c = a + b;
+
+    let mut _d;
+    _d = 44;
+
+    // contoh augmented assignment
+    _c += 10;
+    println!("{}", _c);
+}
+
+#[test]
+fn comparasion_operator() {
+    let a = 10;
+    let b = 3;
+    println!("{}", a < b);
+}
+
+#[test]
+fn boolean_operator() {
+    let a = true;
+    let b = false;
+
+    println!("{}", a && b); // and operator syara ke2 true menghasilkan true selain itu false
+    println!("{}", a || b); // or operator salah satu true maka hasilnya true, gk ada  maka false
+    println!("{}", !b); // not operator jika tidak sama / jika false maka true / jika true maka false
 }
