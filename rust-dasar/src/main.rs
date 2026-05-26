@@ -116,4 +116,38 @@ fn array() {
     // membuat array dengan cara explisit/tipe data dan jumlahnya disebutkan
     let array2: [i8; 6] = [1, 2, 3, 4, 5, 6];
     println!("{:?}", array2);
+
+    let _a = array2[1]; // cara mengakses nilai dari array
+
+    let [_a, _b, _c, _] = array1; // contoh destructuring pada array
+
+    // mutable array
+    let mut _array3 = [123, 543, 31];
+    _array3[2] = 432; // dengan ini bisa mengubah isi dari arraynya
+
+    // cara menghitung panjang array/jumlah datanya
+    let _lenght = array1.len(); // bisa di lihat tipe panjang  data itu usize dmna menyesuaikan komputernya 32/64 bit
+    println!("panjang array {:?}", _array3.len()); // denga fungsi .len() milih array mampu menghitung panjang di array
+}
+
+// array 2 dimensi / metrix
+#[test]
+fn dimensional_array() {
+    let _metrix3d = [ //ini  array 3 dimensi
+        // ini array 2 dimensi
+        [
+            [1, 3], // ini array 1 dimensi
+            [4, 4],
+        ],
+        // ini array 2 dimensi
+        [
+            [5, 6],
+            [3, 1]
+        ]
+    ];
+
+    // Mengambil angka 4 (Blok ke-0, Baris ke-1, Kolom ke-0) itu urutan dengan index
+    println!("Angka: {}", _metrix3d[0][1][0]);
+    // ngambil isi array block ke-0, baris ke-0
+    println!("Angka: {:?}", _metrix3d[0][1]);
 }
