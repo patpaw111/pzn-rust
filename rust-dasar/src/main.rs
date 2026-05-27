@@ -146,8 +146,40 @@ fn dimensional_array() {
         ]
     ];
 
+    println!(": {:?}", _metrix3d);
     // Mengambil angka 4 (Blok ke-0, Baris ke-1, Kolom ke-0) itu urutan dengan index
     println!("Angka: {}", _metrix3d[0][1][0]);
     // ngambil isi array block ke-0, baris ke-0
     println!("Angka: {:?}", _metrix3d[0][1]);
 }
+
+#[test]
+fn constanta() {
+    // membuat variebel constan = tidak dapat di ubah
+    // deklarasi dengan const tidak dengan let
+    // nama variabel harus huruf besar & pemisah kata menggunakan _
+    // tipe data harus explisit/disebutkan
+    const TES: i32 = 12231;
+    println!("nilai conts: {}", TES);
+}
+
+// stak = tempat menaruh data yg fix
+// heap = tempat menaruh data yg dinamis dan akan mengembalikan pointer
+#[test]
+fn stack_heap() {
+    function_a();
+    function_b();
+}
+
+fn function_a() {
+    let a = 10;
+    let b = String::from("Faqih");
+    println!("{} {}", a, b);
+}
+
+fn function_b() {
+    let a = 10;
+    let b = String::from("Faqih");
+    println!("{} {}", a, b);
+}
+
