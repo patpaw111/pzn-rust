@@ -167,19 +167,33 @@ fn constanta() {
 // heap = tempat menaruh data yg dinamis dan akan mengembalikan pointer
 #[test]
 fn stack_heap() {
-    function_a();
-    function_b();
+    _function_a();
+    _function_b();
 }
 
-fn function_a() {
+fn _function_a() {
+    let a = 10;
+    let b = String::from("Faqih");
+    println!("{} {}", a, b);
+}   
+
+fn _function_b() {
     let a = 10;
     let b = String::from("Faqih");
     println!("{} {}", a, b);
 }
 
-fn function_b() {
-    let a = 10;
-    let b = String::from("Faqih");
-    println!("{} {}", a, b);
-}
+#[test]
+fn string() {
+    let name: &str = " ini string slice &str "; //  tipe data string slice &str
+    let trim_name: &str = name.trim(); // digunakan untuk menghapus karakter kosong spasi  pada awal & akhir
+    println!("{}", trim_name);
 
+    let mut nama: String = String::from("faqih"); // walaupun dasarnya bisa di ubah tpi harus memakai mut
+    println!("{}", nama);
+    nama.push(' '); // ini buat char cuma bisa 1 karakter
+    nama.push_str("abdullah"); // ini buat string
+    println!("{}", nama);
+    let faqih = nama.replace("faqih", "imam");
+    println!("{}", faqih);
+}
