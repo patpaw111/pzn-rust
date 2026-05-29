@@ -175,7 +175,7 @@ fn _function_a() {
     let a = 10;
     let b = String::from("Faqih");
     println!("{} {}", a, b);
-}   
+}       
 
 fn _function_b() {
     let a = 10;
@@ -196,4 +196,56 @@ fn string() {
     println!("{}", nama);
     let faqih = nama.replace("faqih", "imam");
     println!("{}", faqih);
+}
+
+// ownership
+#[test]
+fn ownership_rules() {
+    // a tidak bbisa di akses di sini krn blm di buat
+    let a = 10; // bisa di akses mulai dari sini
+
+    {  //  b tidak bisa di  akses dari sini krn blm di deklarasi
+        let b = 20;
+        println!("{}", b);
+    } // scope b selesai, b dihapus, b tidak bisa di akses lagi 
+    
+    println!("{}", a);
+} // scope a selesai, a dihapus, a tidak bisa di akses lagi
+
+// data copy di fixed size variabel/data yg disimpan di stack
+#[test]
+fn data_copy() {
+    let a = 10;
+    let b = a; // b akan copy data a, bukan memiliki/mengambil hak data
+
+    println!("{}", b);
+}
+
+#[test]
+fn ownership_transfer() {
+    let a = String::from("faqih");
+
+    // ownership data dari a dipindahkan ke b
+    let b = a;
+    // variabel a tidak lagi valid dari sini
+
+    println!("{}", b);
+    // println!("{}", a);
+}
+
+#[test]
+fn data_heap_clone() { // intinya sama aja kaya data copy di fixed size variable
+    let a = String::from("radit");
+
+    let b = a.clone(); // akan membuat clone data dari a tpi di masukannya ke heap memory
+
+    println!("{}", a);
+    println!("{}", b);
+
+    {
+        let c = b.clone();
+        println!("{}", c);
+    }
+
+    // let d = &c; gk bisa borrow ownership  klo dri dalam ke luar
 }
