@@ -24,7 +24,7 @@ fn test_variable() {
 
     // shadowing dalam rust
     // kenapa dikasih underscore di dpn var tidak terpakai untuk silence/supress warning dari compiler
-    let _idu  = 14412;
+    let _idu = 14412;
     let _idu = "200321";
 }
 
@@ -45,7 +45,7 @@ fn number() {
 
 #[test]
 fn numeric_operator() {
-    let a =  223;
+    let a = 223;
     let b = 32;
 
     let mut _c = a + b;
@@ -89,7 +89,7 @@ fn tuple() {
     println!("{} {}", a, b);
 
     // contoh mutable tuple
-    let mut jumlah_siswa_tiap_kelas: (i32, i32, bool)  = (33, 29, true);
+    let mut jumlah_siswa_tiap_kelas: (i32, i32, bool) = (33, 29, true);
 
     // dengan tuple yg mutable bisa di ubah nilai dri setiap indexnya
     jumlah_siswa_tiap_kelas.0 = 30;
@@ -133,17 +133,15 @@ fn array() {
 // array 2 dimensi / metrix
 #[test]
 fn dimensional_array() {
-    let _metrix3d = [ //ini  array 3 dimensi
+    let _metrix3d = [
+        //ini  array 3 dimensi
         // ini array 2 dimensi
         [
             [1, 3], // ini array 1 dimensi
             [4, 4],
         ],
         // ini array 2 dimensi
-        [
-            [5, 6],
-            [3, 1]
-        ]
+        [[5, 6], [3, 1]],
     ];
 
     println!(": {:?}", _metrix3d);
@@ -175,7 +173,7 @@ fn _function_a() {
     let a = 10;
     let b = String::from("Faqih");
     println!("{} {}", a, b);
-}       
+}
 
 fn _function_b() {
     let a = 10;
@@ -204,11 +202,12 @@ fn ownership_rules() {
     // a tidak bbisa di akses di sini krn blm di buat
     let a = 10; // bisa di akses mulai dari sini
 
-    {  //  b tidak bisa di  akses dari sini krn blm di deklarasi
+    {
+        //  b tidak bisa di  akses dari sini krn blm di deklarasi
         let b = 20;
         println!("{}", b);
     } // scope b selesai, b dihapus, b tidak bisa di akses lagi 
-    
+
     println!("{}", a);
 } // scope a selesai, a dihapus, a tidak bisa di akses lagi
 
@@ -234,7 +233,8 @@ fn ownership_transfer() {
 }
 
 #[test]
-fn data_heap_clone() { // intinya sama aja kaya data copy di fixed size variable
+fn data_heap_clone() {
+    // intinya sama aja kaya data copy di fixed size variable
     let a = String::from("radit");
 
     let b = a.clone(); // akan membuat clone data dari a tpi di masukannya ke heap memory
@@ -248,4 +248,24 @@ fn data_heap_clone() { // intinya sama aja kaya data copy di fixed size variable
     }
 
     // let d = &c; gk bisa borrow ownership  klo dri dalam ke luar
+}
+
+#[test]
+fn if_expresion() {
+    let nilai_mtk = 67;
+
+    if nilai_mtk >= 75 {
+        println!("anda lulus matkul mtk")
+    } else if nilai_mtk == 75{
+        println!("kkm")
+    } else {
+        println!("anda tidak lulus matkul  mtk")
+    }
+
+    // di dalem variable kita bisa memakai if untuk mengisi hasilnya
+    let _hasil  = if nilai_mtk >= 75 {
+        true
+    } else {
+        false
+    };
 }
