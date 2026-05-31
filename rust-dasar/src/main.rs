@@ -269,3 +269,85 @@ fn if_expresion() {
         false
     };
 }
+
+// loop perulangan yg akan terus mengulang, kita harus menyuruhnya berhenti
+#[test]
+fn loop_expresion() {
+    let mut nilai = 1;
+    loop {
+        if nilai == 10 {
+            break;
+        } else if nilai == 5 {
+            nilai += 1;
+            continue;
+        } else {
+            println!("nilai {}", nilai);
+            nilai += 1;
+        }
+    }
+}
+
+#[test]
+fn loop_return_value() {
+    // return value pada loop
+    let mut a = 0;
+    let counter = loop {
+        a += 1;
+        if a > 10 {
+            break a * 2; // return value yg akan mengisi counter
+        }
+    };
+
+    println!("{} {}",a ,counter);
+}
+
+// loop label berguna untuk melabeli loop, bisa jga untuk menghentikan loop spesifik saat nested
+#[test]
+fn loop_label() {
+    let mut number = 1;
+    // membuat label cukup dengan  'nama_label: loop{}
+    'outer: loop {
+        let mut i = 1;
+        loop {
+            if number > 10 {
+                break 'outer; //  jika kita break aja tanpa menyebutkan labelnya, loop yg berhenti yg di dlm
+            }
+
+            println!("{} x {} = {}", number, i, number*i);
+            i += 1;
+            if i >10 {
+                break;
+            }
+        }
+
+        number += 1;
+    }
+}
+
+// #[test]
+// fn loop_segitiga() {
+//     let mut number = 1;
+//     'outer: loop {
+//         let mut baris: String = String::from("");
+//         let mut i = 1;
+//         loop {
+//             if number > 6 {
+//                 break 'outer;
+//             }
+
+//             loop {
+//                 if i == i{
+//                     break
+//                 }
+//                 baris.push_str("*");
+//             }
+            
+//             println!("{}", baris);
+//             if  i == i{
+//                 i += 1
+//             }
+//         }
+
+//         number += 1;
+//     }
+// }
