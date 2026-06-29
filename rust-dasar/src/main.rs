@@ -256,18 +256,14 @@ fn if_expresion() {
 
     if nilai_mtk >= 75 {
         println!("anda lulus matkul mtk")
-    } else if nilai_mtk == 75{
+    } else if nilai_mtk == 75 {
         println!("kkm")
     } else {
         println!("anda tidak lulus matkul  mtk")
     }
 
     // di dalem variable kita bisa memakai if untuk mengisi hasilnya
-    let _hasil  = if nilai_mtk >= 75 {
-        true
-    } else {
-        false
-    };
+    let _hasil = if nilai_mtk >= 75 { true } else { false };
 }
 
 // loop perulangan yg akan terus mengulang, kita harus menyuruhnya berhenti
@@ -298,7 +294,7 @@ fn loop_return_value() {
         }
     };
 
-    println!("{} {}",a ,counter);
+    println!("{} {}", a, counter);
 }
 
 // loop label berguna untuk melabeli loop, bisa jga untuk menghentikan loop spesifik saat nested
@@ -313,9 +309,9 @@ fn loop_label() {
                 break 'outer; //  jika kita break aja tanpa menyebutkan labelnya, loop yg berhenti yg di dlm
             }
 
-            println!("{} x {} = {}", number, i, number*i);
+            println!("{} x {} = {}", number, i, number * i);
             i += 1;
-            if i >10 {
+            if i > 10 {
                 break;
             }
         }
@@ -341,7 +337,7 @@ fn loop_label() {
 //                 }
 //                 baris.push_str("*");
 //             }
-            
+
 //             println!("{}", baris);
 //             if  i == i{
 //                 i += 1
@@ -351,3 +347,75 @@ fn loop_label() {
 //         number += 1;
 //     }
 // }
+
+// while loop sama kaya biasanya
+#[test]
+fn while_loop() {
+    let mut penentu = 1;
+    while penentu <= 10 {
+        println!("{}", penentu);
+        penentu += 1;
+    }
+}
+
+#[test]
+fn array_iteration_while_loop() {
+    // iterasi array/pengulangan array untuk membaca isinya
+    let pustaka = ["A", "B", "C", "D"];
+    let mut pengulangan: usize = 0;
+    while pengulangan < pustaka.len() {
+        println!("{}", pustaka[pengulangan]);
+        pengulangan += 1;
+    }
+}
+
+#[test]
+fn array_iteration_for_loop() {
+    // lebih simpel
+    let pustaka = ["A", "B", "C", "D"];
+
+    for index in pustaka {
+        // langsung masuk value dia klo  pke for loop
+        println!("{}", index);
+    }
+}
+
+// variabel tipe range dalam rust
+#[test]
+fn tipe_data_range() {
+    let pustaka = ["A", "B", "C", "D"];
+
+    let penentu = 0..4; // angka terakhir itu kaya gk disebutin
+
+    for i in penentu {
+        println!("{}", pustaka[i]);
+    }
+
+    for i in 0..4 {
+        println!("{}", pustaka[i]);
+    }
+}
+
+#[test]
+fn range() {
+    let range = 1..6;
+    println!("{}", range.start); // startnya includ bakal di ambil
+    println!("{}", range.end); // endnya excluds/pengecualian(bahasa mudahnya) gk di ambil/pake
+}
+
+// range inclusive bedanya angka trakhirnya di ambil juga
+#[test]
+fn range_inclusive() {
+    let angka = 0..=3; // jika range melebihi indeks array maka akan membuat panic dan program akan terhenti ketika range membaca indeks array yg tidak ada
+
+    let huruf: [&str; 4] = ["A", "B", "C", "D"];
+
+    for i in angka {
+        println!("huruf: {}", huruf[i]);
+    }
+
+    for i in huruf {
+        println!("huruf: {}", i);
+    }
+}
+
