@@ -419,3 +419,61 @@ fn range_inclusive() {
     }
 }
 
+// function
+fn greating(first_name: &str, last_name: &str){ // parameter tipe datanya harus di sebutkan/definisi
+    println!("Hallo {} {}", first_name, last_name);
+}
+
+#[test]
+fn test_greating() {
+    greating("faqih", "abdullah");
+}
+
+// parameter pada function
+fn factorial_math(n: i32) -> i32 { // nilai return value bisa di sebutkan dengan -> tipe_data
+    if n < 1 {
+        return 0;
+    }
+
+    let mut result = 1;
+    for i in 1..=n {
+        result *= i
+    }
+    result
+}
+
+#[test]
+fn test_factorial_math() {
+    let angka = factorial_math(5);
+    println!("{}", angka)
+}
+
+// rescursive fn masih kurang jelas tpi intinya ini bisa memanggil diri sendiri sampe selesai
+fn print_text(value: String, times: u32) {
+    if times == 0 {
+        return;
+    } else {
+        println!("value:{} time:{}", value,  times);
+    }
+
+    print_text(value, times-1);
+}
+
+#[test]
+fn test_print_text() {
+    print_text(String::from("nama"), 100);
+}
+
+fn rescursive_factorial_math(n:i32) -> i32 {
+    if n <= 1 {
+        return 1;
+    }
+
+    n * rescursive_factorial_math(n - 1)
+}
+
+#[test]
+fn test_rescursive_factorial() {
+    let result = rescursive_factorial_math(5);
+    println!("{}", result);
+}
