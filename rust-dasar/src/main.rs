@@ -477,3 +477,74 @@ fn test_rescursive_factorial() {
     let result = rescursive_factorial_math(5);
     println!("{}", result);
 }
+
+// ownership dalam function -- start
+
+// perpindahan ownership dari variabel ke fn parameter
+fn hi_number(n:i32) { // parameternya tipe integer termaksud stack memory
+    println!("hallo {}", n)
+}
+
+fn hi(word:String) {  // parameternya tipe string termaksud heap memory
+    println!("hallo {}", word)
+}
+
+#[test]
+fn test_hi_number() {
+    let angka  = 10;
+    hi_number(angka); // nilai dalam angka akan di copy ke parameter fn itu krn stack memory
+    println!("{}", angka); // angka masih bisa digunakan karena cuma di copy ke parameter fn
+}
+
+#[test]
+fn test_hi() {
+    let nama  =  String::from("faqih"); // heap memory dia itu hanya boleh 1 owner valuenya
+    // hi(nama);
+    // jika variabel nama kita pakai, maka ownership value akan di transfer ke parameter fn  tersebut, fn selesai maka variabel ataupun value semua akan di hapus dri memory
+    hi(nama.clone()); // berbeda jika tidak pke metode .clone() dimana dia copy data dri heap memory
+    println!("{}", nama); // maka variabel nama tetep bisa di pakai  
+}
+
+// return value ownership
+fn full_name(f_name:String, l_name:String) -> String {
+    format!("{} {}",f_name, l_name )  // ini adalah macro yg berfungsi copy ke 2 data string dan menghasilkan 1 data baru di memory heap
+    // di sini fn akan kembalikan data string yg baru dri format!() dan delete 2 parameter dri memory
+}
+
+#[test]
+fn test_name() {
+    let first_name = String::from("faqih");
+    let last_name = String::from("abdullah");
+
+    // owner value dari variabel di atas akan pindah ke parameter
+    // lalu di gabungkan dengan format!() dan di kembalikan oleh fn
+    // kedumian di pindahkan lagi ownershipnya ke variabel my_name yg memanggil fn isinya
+    let my_name = full_name(first_name, last_name);
+
+    // println!("{}", first_name); // tidak bisa di pakai krn owner ship pindah
+    // println!("{}", last_name); // tidak bisa di pakai krn owner ship pindah
+    println!("{}", my_name);
+}
+
+// mengembalikan ownership denga tuple
+// contohnya kita pakai kode yg di atas tadi
+fn komponen_komputer(cpu:String, ram:String) -> (String, String, String) {
+    let komponen_pc = format!("{} {}", cpu, ram);
+    (cpu, ram, komponen_pc)
+}
+
+#[test]
+fn pc_saya() {
+    let cpu =  String::from("AMD Ryzen 8600G");
+    let ram = String::from("32GB DDR 5");
+
+    // di sini ownership akan dibongkar(destrucsion tuple) ke variabel di yg sesuai di dlm list tuple
+    let (cpu, ram, my_pc) = komponen_komputer(cpu, ram); // fn akan mengembalikan return berupa tuple dan di destruction ke dlm variabel sesuai urutan
+    // saat let itu kita shadowing variabel yg sudah ada bukan memakainya lagi/membuat baru dengan menuliskannya
+
+    println!("{}", cpu);
+    println!("{}", ram);
+    println!("{}", my_pc);
+}
+
+// ownership dalam function -- end
