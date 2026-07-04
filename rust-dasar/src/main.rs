@@ -546,5 +546,5 @@ fn pc_saya() {
     println!("{}", ram);
     println!("{}", my_pc);
 }
-
 // ownership dalam function -- end
+
