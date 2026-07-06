@@ -600,3 +600,15 @@ fn slice() {
     // println!("{:?}", )
 }
 // slice -- end
+
+// string slice -- start
+// jika String kita slice akan menghasilkan &str, dia itu refrence doang dan akan masuk ke fixed size
+#[test]
+fn test_string_slice() {
+    let nama_saya = String::from("faqih abdullah");
+    let nama_depan: &str = &nama_saya[0..5];
+    let nama_belakang: &str = &nama_saya[6..];
+    println!("{}", nama_depan);
+    println!("{}", nama_belakang);
+}
+// string slice -- end
