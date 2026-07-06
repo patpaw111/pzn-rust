@@ -245,6 +245,7 @@ fn data_heap_clone() {
     {
         let c = b.clone();
         println!("{}", c);
+        let _d = &a;
     }
 
     // let d = &c; gk bisa borrow ownership  klo dri dalam ke luar
@@ -548,3 +549,36 @@ fn pc_saya() {
 }
 // ownership dalam function -- end
 
+// refrence dan borrowing -- start
+// menggunakan refrence untuk menunjuk tempat datanya tanpa mengambil ownershipnya
+fn sebut_kata(kata1: &String,  kata2: &String) -> String {
+    // dengan memberikan & bermaksud refrence(mengarahkan lokasi) bawah parameter cuma mengarahkan ke tujuan data
+    // tidak meminjam ownership dari variabel di pakainya
+    format!("{} {}", kata1, kata2)
+}
+
+#[test]
+fn test_panggil_kata() {
+    let kata_pertama = String::from("heloo");
+    let kata_kedua = String::from("world");
+
+    // fungsi &variabel yg di pke untuk param berguna mengarahkan ke lokasi data variabel tersebut tanpa mengambil ownership
+    let gabungkan = sebut_kata(&kata_pertama, &kata_kedua);
+    println!("{}", kata_pertama); // dengan begitu variabel bisa digunakan lagi
+    println!("{}", kata_kedua);
+    println!("{}", gabungkan);
+}
+
+// mengganti value dari borrowing (tidak boleh, tapi jika di kasih &mut compiler bolehin)
+fn minjem_motor(motor: &mut String) { // jika di kasih kata depan mut compiler memperbolehkannya
+    motor.push_str(" modif") //compiler akan menolak krn refrence tidak boleh di ubah walau nilainya mutable
+}
+
+#[test]
+fn test_pinjemin() {
+    let mut merek = String::from("beat");
+    minjem_motor(&mut merek); // saat menggunakan refrence klo data mau di ubah bisa pke &mut nama_variable
+    println!("{}", merek)
+}
+
+// refrence dan borrowing -- end
