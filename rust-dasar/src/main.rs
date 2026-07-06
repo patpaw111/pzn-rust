@@ -580,5 +580,23 @@ fn test_pinjemin() {
     minjem_motor(&mut merek); // saat menggunakan refrence klo data mau di ubah bisa pke &mut nama_variable
     println!("{}", merek)
 }
-
 // refrence dan borrowing -- end
+
+// slice -- start
+// refrence dalam slice
+#[test]
+fn slice() {
+    let angka = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    println!("{:?}", angka);
+    
+    let slice1: &[i32] = &angka[..];
+    println!("{:?}", slice1);
+
+    let slice2: &[i32] = &angka[5..10];
+    println!("{:?}", slice2);
+
+    let slice3: &[i32] = &angka[6..];
+    println!("{:?}", slice3);
+    // println!("{:?}", )
+}
+// slice -- end
