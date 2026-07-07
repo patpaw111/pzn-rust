@@ -612,3 +612,55 @@ fn test_string_slice() {
     println!("{}", nama_belakang);
 }
 // string slice -- end
+
+// struct -- start
+// hampir sama kaya tuple, klo struct urutannya pke nama kaya class jatuhnya ya
+struct Person {
+    nama: String,
+    umur: u8
+}
+
+fn informasi_orang(nama: &String, umur: u8) -> String {
+    format!("nama dia {}, umur dia {}", nama, umur)
+}
+
+#[test]
+fn test_informasi_orang() {
+    // ini adalah contoh instace yg di buat dari Person
+    let orang1: Person = Person {
+        nama: String::from("faqih abdullah"),
+        umur: 21,
+    };
+    let sapa = informasi_orang(&orang1.nama, orang1.umur);
+    println!("{}", orang1.nama);
+    println!("{}", sapa);
+
+    // contoh init shorthand dalam struct
+    let nama = String::from("taiho"); // syarat nama variabel harus sama dengan nama  field
+    let umur = 24;
+    let orang2: Person = Person {
+        nama, // ownership akan pindah kesini
+        umur,
+    };
+    println!("{} {}", orang2.nama, orang2.umur);
+}
+
+// tuple struck intinya struck gk pke nama field aksesnya sama kaya tuple
+struct NilaiXY (f64, f64); // tuple struk make urutan kaya indeks 0..seterusnya
+
+#[test]
+fn test_nilaixy() {
+    let kordinat_2d = NilaiXY (-51.3142, 313.222);
+
+    // cara aksesnya
+    println!("x:{} y:{}", kordinat_2d.0, kordinat_2d.1) // memakai nama_variabel.indeks/urutannya
+}
+
+// struct tanpa field
+struct _Kosong;
+
+#[test]
+fn test_kosong() {
+    let _isi = _Kosong;
+}
+// struct -- end
