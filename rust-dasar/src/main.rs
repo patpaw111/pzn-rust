@@ -648,9 +648,21 @@ fn test_informasi_orang() {
 // tuple struck intinya struck gk pke nama field aksesnya sama kaya tuple
 struct NilaiXY (f64, f64); // tuple struk make urutan kaya indeks 0..seterusnya
 
+impl NilaiXY {
+    // ASSOCIATED FUNCTION
+    fn new(x: f64, y: f64) -> NilaiXY {
+        // tipe returnnya nama struct/enum/trait nya sendiri
+        NilaiXY(x, y) // ini bkn manguil fn  lagi tapi, ini tuple struct makanya pke () bkn {}
+    }
+}
+
 #[test]
 fn test_nilaixy() {
     let kordinat_2d = NilaiXY (-51.3142, 313.222);
+
+    let kordinat_player = NilaiXY::new(18.3125, 434.656);
+    println!("{}", kordinat_player.0); // cara akses model tuple
+    println!("{}", kordinat_player.1);
 
     // cara aksesnya
     println!("x:{} y:{}", kordinat_2d.0, kordinat_2d.1) // memakai nama_variabel.indeks/urutannya
@@ -664,3 +676,46 @@ fn test_kosong() {
     let _isi = _Kosong;
 }
 // struct -- end
+
+// methode -- start
+// methode itu sama aja kaya fn, tpi dia menempel di struct, trait, dan enum
+// pada methode parameter pertama selalu self = field yg ada di dlm struct tersebut
+// parameter self biasanya dibuat dengan bentuk refrence
+struct Mobil {
+    merek: String,
+    harga: u64,
+}
+
+// untuk membuat method pakai impl=implementasi
+// lalu sebutkan nama struct/enum/trait
+impl Mobil {
+    // lalu buat fn di dalam scope ini
+    fn mobil_wow(&self) { // pke refrence biar gk pindah ownershipnya
+        println!("ini merek {}, harganya {}", self.merek, self.harga)
+    }
+
+    // ASSOCIATED FUNCTION
+    fn new(merek: &str, harga: u64) -> Mobil {
+        Mobil {
+            merek: merek.to_string(), // convert ke string biar pas pke fn gk ribet
+            harga: harga
+        }
+    }
+}
+
+#[test]
+fn test_mobil() {
+    let mobil1 = Mobil {
+        merek: String::from("mbw"),
+        harga: 100000000
+    };
+
+    // cara pemanggilan methode yg di buat
+    mobil1.mobil_wow();
+    println!("{}", mobil1.merek);
+
+    let mobil2 = Mobil::new("toyota", 10000);
+    mobil2.mobil_wow();
+    println!("{}", mobil2.merek);
+}
+// methode -- end
