@@ -719,3 +719,56 @@ fn test_mobil() {
     println!("{}", mobil2.merek);
 }
 // methode -- end
+
+// enum -- start
+// enum itu kaya tipe data yg  punya opsi pilihan, contohnya
+
+// tipe data buatan kita sendiri (seperti struct dan enum) tidak secara otomatis tahu bagaimana cara menampilkan wujudnya ke layar
+
+// contoh enum sederhana
+#[derive(Debug)] // Tambahkan baris ini agar LevelMember bisa di-print pakai {:?}
+enum LevelMember {
+    Bronze,
+    Silver,
+    Gold
+}
+
+// contoh enum bisa simpan data/seperti tuple tiap field-nya
+#[derive(Debug)] // Tambahkan baris ini agar LevelMember bisa di-print pakai {:?}
+enum Payment {
+    CreditCard(String),
+    BankTransfer(String, String),
+    EWallet(String, String)
+}
+
+// methode dalam enum
+impl LevelMember {
+    fn greating_member(&self) -> String {
+        format!("Selamat Bergabung")
+    }
+}
+
+impl Payment {
+    fn check_member(&self, total_bayar: u64) -> String {
+        format!("Member membayar:{}", total_bayar)
+    }
+}
+#[test]
+fn test_enum() {
+    // jika kita ingin memakai enum
+    let _anggota1 = LevelMember::Bronze; // NamaEnum::NamaField
+    let _anggota2 = LevelMember::Silver;
+    let _anggota3 = LevelMember::Gold;
+
+    // contoh memakai enum dengan field tuple
+    let _payment1 = Payment::CreditCard(String::from("BCA"));
+    let _payment2 = Payment::BankTransfer(String::from("Bank Mandiri"), String::from("rek:223122231"));
+    let _payment3 = Payment::EWallet(String::from("Dana"), String::from("no:083124123"));
+
+    println!("{:?} {:?}", _anggota1, _payment1);
+    println!("{:?} {:?}", _anggota2, _payment2);
+    println!("{:?} {:?}", _anggota3, _payment3);
+
+    // satu-satunya cara untuk membongkar dan mengambil isi data dari dalam enum adalah menggunakan Pattern Matching (Pencocokan Pola).
+}
+// enum -- end
