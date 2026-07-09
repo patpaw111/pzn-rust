@@ -749,8 +749,53 @@ impl LevelMember {
 }
 
 impl Payment {
-    fn check_member(&self, total_bayar: u64) -> String {
-        format!("Member membayar:{}", total_bayar)
+    // membuat methode, mencoba matching patern untuk menentukan pilihan dari enum
+    fn check_member(&self, total_bayar: u64, level_member: &LevelMember) {
+
+        let mut discount;
+        // jika ingin memakai 2 enum berbeda
+        match (self, level_member) {
+            (Payment::CreditCard(nama_bank), LevelMember::Bronze) => {
+                println!("membayar dengan {}", nama_bank);
+                discount = 10;
+            }
+            (Payment::CreditCard(nama_bank), LevelMember::Silver) => {
+                println!("membayar dengan {}", nama_bank);
+                discount = 15;
+            }
+            (Payment::CreditCard(nama_bank), LevelMember::Gold) => {
+                println!("membayar dengan {}", nama_bank);
+                discount = 30;
+            }
+            (Payment::BankTransfer(nama_bank, norek), LevelMember::Bronze) => {
+                println!("membayar dengan {}, nomor rekening: {}", nama_bank, norek);
+                discount = 5;
+            }
+            (Payment::BankTransfer(nama_bank, norek), LevelMember::Silver) => {
+                println!("membayar dengan {}, nomor rekening: {}", nama_bank, norek);
+                discount = 10;
+            }
+            (Payment::BankTransfer(nama_bank, norek), LevelMember::Gold) => {
+                println!("membayar dengan {}, nomor rekening: {}", nama_bank, norek);
+                discount = 15;
+            }
+            (Payment::EWallet(nama_bank, norek), LevelMember::Bronze) => {
+                println!("membayar dengan {}, nomor rekening: {}", nama_bank, norek);
+                discount = 5;
+            }
+            (Payment::EWallet(nama_bank, norek), LevelMember::Silver) => {
+                println!("membayar dengan {}, nomor rekening: {}", nama_bank, norek);
+                discount = 10;
+            }
+            (Payment::EWallet(nama_bank, norek), LevelMember::Gold) => {
+                println!("membayar dengan {}, nomor rekening: {}", nama_bank, norek);
+                discount = 15;
+            }
+        }
+
+        let hasil = total_bayar - ((total_bayar*discount)/100);
+        println!("Member membayar:{}", total_bayar);
+        println!("{} discount {}% = {}", total_bayar, discount, hasil);
     }
 }
 #[test]
@@ -772,3 +817,33 @@ fn test_enum() {
     // satu-satunya cara untuk membongkar dan mengambil isi data dari dalam enum adalah menggunakan Pattern Matching (Pencocokan Pola).
 }
 // enum -- end
+
+// patern matching -- start
+// bisa digunakan untuk melakukan pengecekan value, variable, dan banyak hal
+
+// patern matching itu cara kita mengakses enum, krn di dalam enum ada banyak sekali opsi
+// patern matching untuk enum
+#[test]
+fn test_enum_patern_matching() {
+    let level_anggota1 = LevelMember::Bronze;
+    let payment_anggota1  = Payment::EWallet(String::from("Dana"), String::from("0831235343"));
+
+    // cara menggunakan pada variabel
+    // match nama_variabel {}
+    match level_anggota1 {
+        // disini semua opsi field harus ada outputnya
+        // penulisannya NamaEnum::NamaField/Opsi-nya => {}
+        LevelMember::Bronze => {
+            println!("hallo anggota bronze")
+        }
+        LevelMember::Silver => {
+            println!("hallo anggota silver")
+        }
+        LevelMember::Gold => {
+            println!("hallo anggota gold")
+        }
+    }
+
+    payment_anggota1.check_member(230000, &level_anggota1);
+}
+// patern matching -- end
