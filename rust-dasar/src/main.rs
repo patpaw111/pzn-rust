@@ -620,6 +620,12 @@ struct Person {
     umur: u8
 }
 
+impl Person {
+    fn new(nama: &str, umur: u8) -> Person {
+        Person{nama: nama.to_string(), umur}
+    }
+}
+
 fn informasi_orang(nama: &String, umur: u8) -> String {
     format!("nama dia {}, umur dia {}", nama, umur)
 }
@@ -824,14 +830,14 @@ fn test_enum() {
 // patern matching itu cara kita mengakses enum, krn di dalam enum ada banyak sekali opsi
 // patern matching untuk enum
 #[test]
-fn test_enum_patern_matching() {
+fn test_enum_pattern_matching() {
     let level_anggota1 = LevelMember::Bronze;
     let payment_anggota1  = Payment::EWallet(String::from("Dana"), String::from("0831235343"));
 
     // cara menggunakan pada variabel
     // match nama_variabel {}
     match level_anggota1 {
-        // disini semua opsi field harus ada outputnya
+        // disini semua opsi variant(tipe data yg kita buat) harus ada outputnya
         // penulisannya NamaEnum::NamaField/Opsi-nya => {}
         LevelMember::Bronze => {
             println!("hallo anggota bronze")
@@ -845,5 +851,103 @@ fn test_enum_patern_matching() {
     }
 
     payment_anggota1.check_member(230000, &level_anggota1);
+}
+
+#[test]
+fn test_pattern_matching_value() {
+    // pattern matching pada value
+    let nama = "faqih";
+    match nama {
+        "abdullah" => {
+            println!("hallo abdullah")
+        }
+        other => { // other bekerja untuk menampung value yg tidak ada
+            println!("hallo {}", other)
+        }
+    }
+
+    // multiple matching
+    match nama {
+        "abdullah" | "imam" => {  // disini bisa menggunakan pipe simbol |, sebagai atau
+            println!("hallo abdullah")
+        }
+        other => { // other bekerja untuk menampung value yg tidak ada
+            println!("hallo {}", other)
+        }
+    }
+
+    // range value dalam matching
+    // bisa di lakukan dengan tipe data range (seperti pada materi slice)
+    let nilai = 100;
+    match nilai {
+        85..=100 => {println!("bagus sekali")} // memakai inlcusive range
+        75..=84 => {println!("bagus")}
+        40..=74 => {println!("jelek")}
+        0..=39 => {println!("DO")}
+        // Tipe data i32 bisa menampung angka dari minus 2,1 Miliar sampai plus 2,1 Miliar
+        other => {println!("gk sesuai {}", other)} // syaratnya wajib ada variabel untuk menampung nilai dri i32
+    }
+}
+
+// destruc match pattern
+// kita bisa membongkar struct field
+#[test]
+fn test_struct_pattern() {
+    let axis = NilaiXY::new(0.0, 14.53);
+
+    // destruc pada struct model tuple
+    match axis {
+        NilaiXY(0.0, y) => {
+            println!("y:{}", y)
+        }
+        NilaiXY(x, 0.0) => {
+            println!("x:{}", x)
+        }
+        NilaiXY(x, y) => {
+            println!("x:{} y:{}", x, y)
+        }
+    }
+
+    // destruc pada struct model named field
+    // let orang1 = Person::new(String::from("faqih A"), 22);
+    let orang1 = Person::new("faqih A", 22);
+    // kenapa cuma 1 opsi krn tipenya cuma punya 1 wujud
+    // beda dengan enum yg banyak opsinya
+    match orang1 {
+        Person { nama, ..} => { // .. artinya tidak di pke
+            println!("nama: {}", nama)
+        }
+    }
+
+    // contoh ignoring dengan _ 
+    // dipakai jika data tidak dibutuhkan
+    match axis {
+        NilaiXY(_, y) => {
+            println!("y:{}", y)
+        }
+    }
+    let nilai = 10022;
+    match nilai {
+        85..=100 => {println!("bagus sekali")} // memakai inlcusive range
+        75..=84 => {println!("bagus")}
+        40..=74 => {println!("jelek")}
+        0..=39 => {println!("DO")}
+        // Tipe data i32 bisa menampung angka dari minus 2,1 Miliar sampai plus 2,1 Miliar
+        _ => {println!("invalid data")} // syaratnya wajib ada variabel untuk menampung nilai dri i32
+    }
+}
+
+// match expresion bisa menghasilkan value
+// sama kaya if while bisa menghasilkan value
+#[test]
+fn test_match_expresion() {
+    let angka = 4;
+    let hasil = match angka {
+        1 => {"1"}
+        2 => {"2"}
+        3 => {"3"}
+        _ => {"invalid"}
+    };
+    println!("{}", hasil);
 }
 // patern matching -- end
